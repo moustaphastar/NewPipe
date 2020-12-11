@@ -18,7 +18,7 @@
  * along with NewPipe.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.schabi.newpipe;
+package org.schabi.newpipe.screens;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -59,6 +59,8 @@ import androidx.preference.PreferenceManager;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.navigation.NavigationView;
 
+import org.schabi.newpipe.BuildConfig;
+import org.schabi.newpipe.R;
 import org.schabi.newpipe.extractor.NewPipe;
 import org.schabi.newpipe.extractor.StreamingService;
 import org.schabi.newpipe.extractor.exceptions.ExtractionException;
@@ -72,7 +74,6 @@ import org.schabi.newpipe.player.event.OnKeyDownListener;
 import org.schabi.newpipe.player.helper.PlayerHolder;
 import org.schabi.newpipe.player.playqueue.PlayQueue;
 import org.schabi.newpipe.report.ErrorActivity;
-import org.schabi.newpipe.screens.BookMarkedPlaylistActivity;
 import org.schabi.newpipe.util.Constants;
 import org.schabi.newpipe.util.DeviceUtils;
 import org.schabi.newpipe.util.KioskTranslator;
@@ -89,14 +90,11 @@ import org.schabi.newpipe.views.FocusOverlayView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-
-import sdk.pendo.io.Pendo;
 
 import static org.schabi.newpipe.util.Localization.assureCorrectAppLanguage;
 
-public class MainActivity extends AppCompatActivity {
+public class BookMarkedPlaylistActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     public static final boolean DEBUG = !BuildConfig.BUILD_TYPE.equals("release");
 
@@ -213,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onDrawerOpened(final View drawerView) {
-                lastService = ServiceHelper.getSelectedServiceId(MainActivity.this);
+                lastService = ServiceHelper.getSelectedServiceId(BookMarkedPlaylistActivity.this);
             }
 
             @Override
@@ -221,14 +219,15 @@ public class MainActivity extends AppCompatActivity {
                 if (servicesShown) {
                     toggleServices();
                 }
-                if (lastService != ServiceHelper.getSelectedServiceId(MainActivity.this)) {
-                    new Handler(Looper.getMainLooper()).post(MainActivity.this::recreate);
+                if (lastService != ServiceHelper.getSelectedServiceId(BookMarkedPlaylistActivity.this)) {
+                    new Handler(Looper.getMainLooper()).post(BookMarkedPlaylistActivity.this::recreate);
                 }
             }
         });
 
         drawerItems.setNavigationItemSelectedListener(this::drawerItemSelected);
         setupDrawerHeader();
+        NavigationHelper.openBookmarksFragment(getSupportFragmentManager());
     }
 
     private boolean drawerItemSelected(final MenuItem item) {
@@ -271,9 +270,7 @@ public class MainActivity extends AppCompatActivity {
                 NavigationHelper.openFeedFragment(getSupportFragmentManager());
                 break;
             case ITEM_ID_BOOKMARKS:
-                Intent intent = new Intent(this, BookMarkedPlaylistActivity.class);
-                startActivity(intent);
-                //NavigationHelper.openBookmarksFragment(getSupportFragmentManager());
+                NavigationHelper.openBookmarksFragment(getSupportFragmentManager());
                 break;
             case ITEM_ID_DOWNLOADS:
                 NavigationHelper.openDownloads(this);
@@ -506,7 +503,7 @@ public class MainActivity extends AppCompatActivity {
             // https://stackoverflow.com/questions/10844112/
             // Briefly, let the activity resume
             // properly posting the recreate call to end of the message queue
-            new Handler(Looper.getMainLooper()).post(MainActivity.this::recreate);
+            new Handler(Looper.getMainLooper()).post(BookMarkedPlaylistActivity.this::recreate);
         }
 
         if (sharedPreferences.getBoolean(Constants.KEY_MAIN_PAGE_CHANGE, false)) {

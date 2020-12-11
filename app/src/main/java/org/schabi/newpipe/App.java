@@ -16,6 +16,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import org.acra.ACRA;
+import org.acra.BuildConfig;
 import org.acra.config.ACRAConfigurationException;
 import org.acra.config.CoreConfiguration;
 import org.acra.config.CoreConfigurationBuilder;
@@ -88,7 +89,7 @@ public class App extends MultiDexApplication {
         super.onCreate();
 
         Pendo.PendoInitParams pendoParams = new Pendo.PendoInitParams();
-        pendoParams.setVisitorId("RAClick_Test");
+        pendoParams.setVisitorId("GuideTest");
         pendoParams.setAccountId("Account_1");
         Map<String, Object> visitorData = new HashMap<>();
         visitorData.put("age", 27);

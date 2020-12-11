@@ -54,6 +54,18 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".screens.BookMarkedPlaylistActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask">
+        </activity>
+
+        <activity
+            android:name=".screens.SubscriptionsActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask">
+        </activity>
+
         <receiver android:name="androidx.media.session.MediaButtonReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
