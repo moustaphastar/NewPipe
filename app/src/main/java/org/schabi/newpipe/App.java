@@ -35,7 +35,9 @@ import java.io.InterruptedIOException;
 import java.net.SocketException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.exceptions.CompositeException;
@@ -44,6 +46,7 @@ import io.reactivex.exceptions.OnErrorNotImplementedException;
 import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
+import sdk.pendo.io.Pendo;
 
 /*
  * Copyright (C) Hans-Christoph Steiner 2016 <hans@eds.org>
@@ -83,6 +86,20 @@ public class App extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Pendo.PendoInitParams pendoParams = new Pendo.PendoInitParams();
+        pendoParams.setVisitorId("RAClick_Test");
+        pendoParams.setAccountId("Account_1");
+        Map<String, Object> visitorData = new HashMap<>();
+        visitorData.put("age", 27);
+        visitorData.put("country", "USA");
+        pendoParams.setVisitorData(visitorData);
+        Map<String, Object> accountData = new HashMap<>();
+        accountData.put("Tier", 1);
+        accountData.put("Size", "Enterprise");
+        pendoParams.setAccountData(accountData);
+        String pendoAppKey = "eyJhbGciOiJSUzI1NiIsImtpZCI6IiIsInR5cCI6IkpXVCJ9.eyJkYXRhY2VudGVyIjoidXMiLCJrZXkiOiI5NjNjZjFmOGE1OWNmODkwMTY1ZGE3ZWIwODdhZGZmNTkxNjA1OTRkZWI1YmQ5NWIwMzU2ZWVjODdjNTg4ZmVmZDc0NjMyNDBiODU2N2ZlODQxODViNDM4NDY2OTNkYWQwZThkNTljZDgxMzc1YzE3Y2JmMDA2NDc4OThlOGFiNDc0MDdjN2UyOWM4YmY5YzAyZjc5NWJkNDdkZWE5MDI1LmY0ZjM3MjlhNTdlNjMzOGQ4NjQyY2Q1NjgxMGI1NTJiLjU1YTRiY2I2ODYwMzZjYjBmNjJhNWU3ODljNTZhOGFhZGZhNTJmZDYwNzU2OTE5OTQ4MTAwMTVlZWJjZWJkZmIifQ.QjqsxDyPPP8Zugz70kfMS07xM3hb8XnDlKXoOJafcvl4w1h-_-iyrl1O_DT2HAu9Cb_i7rfTFSDyMnpvp_YLKWYpTtXBN2FX6XEPFteXNppHGcE4prZzgYhYtrjvd_W3SaeVj2fqDLhaa8m-t0NGd3eiARpKL_IMbJ1r-PLG5lY";
+        Pendo.initSDK(this, pendoAppKey, pendoParams);
 
         app = this;
 

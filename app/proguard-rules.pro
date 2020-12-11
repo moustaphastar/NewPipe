@@ -16,38 +16,79 @@
 #   public *;
 #}
 
--dontobfuscate
--keep class org.schabi.newpipe.extractor.timeago.patterns.** { *; }
--keep class org.ocpsoft.prettytime.i18n.** { *; }
-
--keep class org.mozilla.javascript.** { *; }
-
--keep class org.mozilla.classfile.ClassFileWriter
--keep class com.google.android.exoplayer2.** { *; }
-
--dontwarn org.mozilla.javascript.tools.**
--dontwarn android.arch.util.paging.CountedDataSource
--dontwarn android.arch.persistence.room.paging.LimitOffsetDataSource
-
-
-# Rules for icepick. Copy paste from https://github.com/frankiesardo/icepick
--dontwarn icepick.**
--keep class icepick.** { *; }
--keep class **$$Icepick { *; }
--keepclasseswithmembernames class * {
-    @icepick.* <fields>;
-}
--keepnames class * { @icepick.State *;}
-
-# Rules for OkHttp. Copy paste from https://github.com/square/okhttp
--dontwarn okhttp3.**
--dontwarn okio.**
--dontwarn javax.annotation.**
-# A resource is loaded with a relative path so the package of this class must be preserved.
--keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
--keepclassmembers class * implements java.io.Serializable {
-    static final long serialVersionUID;
-    !static !transient <fields>;
-    private void writeObject(java.io.ObjectOutputStream);
-    private void readObject(java.io.ObjectInputStream);
-}
+#-dontobfuscate
+#-keep class org.schabi.newpipe.extractor.timeago.patterns.** { *; }
+#-keep class org.ocpsoft.prettytime.i18n.** { *; }
+#
+#-keep class org.mozilla.javascript.** { *; }
+#
+#-keep class org.mozilla.classfile.ClassFileWriter
+#-keep class com.google.android.exoplayer2.** { *; }
+#
+#-dontwarn org.mozilla.javascript.tools.**
+#-dontwarn android.arch.util.paging.CountedDataSource
+#-dontwarn android.arch.persistence.room.paging.LimitOffsetDataSource
+#
+#
+## Rules for icepick. Copy paste from https://github.com/frankiesardo/icepick
+#-dontwarn icepick.**
+#-keep class icepick.** { *; }
+#-keep class **$$Icepick { *; }
+#-keepclasseswithmembernames class * {
+#    @icepick.* <fields>;
+#}
+#-keepnames class * { @icepick.State *;}
+#
+## Rules for OkHttp. Copy paste from https://github.com/square/okhttp
+#-dontwarn okhttp3.**
+#-dontwarn okio.**
+#-dontwarn javax.annotation.**
+## A resource is loaded with a relative path so the package of this class must be preserved.
+#-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+#-keepclassmembers class * implements java.io.Serializable {
+#    static final long serialVersionUID;
+#    !static !transient <fields>;
+#    private void writeObject(java.io.ObjectOutputStream);
+#    private void readObject(java.io.ObjectInputStream);
+#}
+#
+#-keep class okio.** { *; }
+#-dontwarn okio.**
+#-keep class retrofit.** { *; }
+#-dontwarn retrofit.**
+#-keep class rx.** { *; }
+#-dontwarn rx.**
+#-keep class sdk.pendo.** { *; }
+#-dontwarn sdk.pendo.**
+#-keepattributes Signature
+#-keep class sun.misc.Unsafe { *; }
+#-dontwarn external.sdk.pendo.io.mozilla.**
+#-dontwarn external.sdk.pendo.io.il.mozilla.**
+#-dontwarn org.slf4j.**
+#-dontwarn retrofit2.**
+#-dontwarn javax.annotation.Nullable
+#-dontwarn javax.annotation.ParametersAreNonnullByDefault
+#-dontwarn com.jakewharton.rxbinding.**
+#-keep class com.daimajia.easing.** { *; }
+#-keep interface com.daimajia.easing.** { *; }
+#-keep class external.sdk.pendo.io.mozilla.** { *; }
+#-keep class external.sdk.pendo.io.il.mozilla.** { *; }
+#-keep class org.apache.commons.lang3.** { *; }
+#-keep class io.reactivex.** { *; }
+#-dontwarn io.reactivex.**
+#-keep class com.google.gson.** { *; }
+#-dontwarn com.google.gson.**
+#-keep class com.trello.rxlifecycle3.** { *; }
+#-dontwarn com.trello.rxlifecycle3.**
+#-keep class kotlin.jvm.internal.** { *; }
+#-dontwarn kotlin.jvm.internal.**
+#-keep class com.jayway.jsonpath.** { *; }
+#-dontwarn com.jayway.jsonpath.**
+#-keep class okhttp3.internal.platform.** { *; }
+#-dontwarn okhttp3.internal.platform.**
+#-keep public class * extends android.view.View {
+#    public <init>(android.content.Context);
+#    public <init>(android.content.Context, android.util.AttributeSet);
+#    public <init>(android.content.Context, android.util.AttributeSet, int);
+#    public void set*(...);
+#}

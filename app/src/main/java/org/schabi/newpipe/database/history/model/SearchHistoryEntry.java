@@ -19,9 +19,16 @@ public class SearchHistoryEntry {
     public static final String CREATION_DATE = "creation_date";
     public static final String SEARCH = "search";
 
+//    @ColumnInfo(name = ID)
+//    @PrimaryKey(autoGenerate = true)
+//    private long id = 0L;
+// > Task :app:kaptDebugKotlin
+//  ...\NewPipe\app\src\main\java\org\schabi\newpipe\database\playlist\model\PlaylistStreamEntity.java:45:
+//  error: Cannot find getter for field.
+    // To fix the error I used uid instead of id. Worked
     @ColumnInfo(name = ID)
     @PrimaryKey(autoGenerate = true)
-    private long id;
+    private long uid = 0;
 
     @ColumnInfo(name = CREATION_DATE)
     private OffsetDateTime creationDate;
@@ -39,12 +46,20 @@ public class SearchHistoryEntry {
         this.search = search;
     }
 
-    public long getId() {
-        return id;
+//    public long getId() {
+//        return id;
+//    }
+//
+//    public void setId(final long id) {
+//        this.id = id;
+//    }
+
+    public long getUid() {
+        return uid;
     }
 
-    public void setId(final long id) {
-        this.id = id;
+    public void setUid(final long uid) {
+        this.uid = uid;
     }
 
     public OffsetDateTime getCreationDate() {

@@ -65,7 +65,7 @@
               "service_id",
               "url"
             ],
-            "createSql": "CREATE UNIQUE INDEX `index_subscriptions_service_id_url` ON `${TABLE_NAME}` (`service_id`, `url`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_subscriptions_service_id_url` ON `${TABLE_NAME}` (`service_id`, `url`)"
           }
         ],
         "foreignKeys": []
@@ -75,7 +75,7 @@
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `creation_date` INTEGER, `service_id` INTEGER NOT NULL, `search` TEXT)",
         "fields": [
           {
-            "fieldPath": "id",
+            "fieldPath": "uid",
             "columnName": "id",
             "affinity": "INTEGER",
             "notNull": true
@@ -112,7 +112,7 @@
             "columnNames": [
               "search"
             ],
-            "createSql": "CREATE  INDEX `index_search_history_search` ON `${TABLE_NAME}` (`search`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_search_history_search` ON `${TABLE_NAME}` (`search`)"
           }
         ],
         "foreignKeys": []
@@ -208,7 +208,7 @@
               "service_id",
               "url"
             ],
-            "createSql": "CREATE UNIQUE INDEX `index_streams_service_id_url` ON `${TABLE_NAME}` (`service_id`, `url`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_streams_service_id_url` ON `${TABLE_NAME}` (`service_id`, `url`)"
           }
         ],
         "foreignKeys": []
@@ -250,7 +250,7 @@
             "columnNames": [
               "stream_id"
             ],
-            "createSql": "CREATE  INDEX `index_stream_history_stream_id` ON `${TABLE_NAME}` (`stream_id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_stream_history_stream_id` ON `${TABLE_NAME}` (`stream_id`)"
           }
         ],
         "foreignKeys": [
@@ -341,7 +341,7 @@
             "columnNames": [
               "name"
             ],
-            "createSql": "CREATE  INDEX `index_playlists_name` ON `${TABLE_NAME}` (`name`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_playlists_name` ON `${TABLE_NAME}` (`name`)"
           }
         ],
         "foreignKeys": []
@@ -384,7 +384,7 @@
               "playlist_id",
               "join_index"
             ],
-            "createSql": "CREATE UNIQUE INDEX `index_playlist_stream_join_playlist_id_join_index` ON `${TABLE_NAME}` (`playlist_id`, `join_index`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_playlist_stream_join_playlist_id_join_index` ON `${TABLE_NAME}` (`playlist_id`, `join_index`)"
           },
           {
             "name": "index_playlist_stream_join_stream_id",
@@ -392,7 +392,7 @@
             "columnNames": [
               "stream_id"
             ],
-            "createSql": "CREATE  INDEX `index_playlist_stream_join_stream_id` ON `${TABLE_NAME}` (`stream_id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_playlist_stream_join_stream_id` ON `${TABLE_NAME}` (`stream_id`)"
           }
         ],
         "foreignKeys": [
@@ -480,7 +480,7 @@
             "columnNames": [
               "name"
             ],
-            "createSql": "CREATE  INDEX `index_remote_playlists_name` ON `${TABLE_NAME}` (`name`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_remote_playlists_name` ON `${TABLE_NAME}` (`name`)"
           },
           {
             "name": "index_remote_playlists_service_id_url",
@@ -489,7 +489,7 @@
               "service_id",
               "url"
             ],
-            "createSql": "CREATE UNIQUE INDEX `index_remote_playlists_service_id_url` ON `${TABLE_NAME}` (`service_id`, `url`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_remote_playlists_service_id_url` ON `${TABLE_NAME}` (`service_id`, `url`)"
           }
         ],
         "foreignKeys": []
@@ -525,7 +525,7 @@
             "columnNames": [
               "subscription_id"
             ],
-            "createSql": "CREATE  INDEX `index_feed_subscription_id` ON `${TABLE_NAME}` (`subscription_id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_feed_subscription_id` ON `${TABLE_NAME}` (`subscription_id`)"
           }
         ],
         "foreignKeys": [
@@ -595,7 +595,7 @@
             "columnNames": [
               "sort_order"
             ],
-            "createSql": "CREATE  INDEX `index_feed_group_sort_order` ON `${TABLE_NAME}` (`sort_order`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_feed_group_sort_order` ON `${TABLE_NAME}` (`sort_order`)"
           }
         ],
         "foreignKeys": []
@@ -631,7 +631,7 @@
             "columnNames": [
               "subscription_id"
             ],
-            "createSql": "CREATE  INDEX `index_feed_group_subscription_join_subscription_id` ON `${TABLE_NAME}` (`subscription_id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_feed_group_subscription_join_subscription_id` ON `${TABLE_NAME}` (`subscription_id`)"
           }
         ],
         "foreignKeys": [

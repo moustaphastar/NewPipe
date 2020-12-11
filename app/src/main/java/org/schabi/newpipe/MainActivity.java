@@ -88,7 +88,10 @@ import org.schabi.newpipe.views.FocusOverlayView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+
+import sdk.pendo.io.Pendo;
 
 import static org.schabi.newpipe.util.Localization.assureCorrectAppLanguage;
 
@@ -154,6 +157,26 @@ public class MainActivity extends AppCompatActivity {
             FocusOverlayView.setupFocusObserver(this);
         }
         openMiniPlayerUponPlayerStarted();
+
+//        //Init PENDO
+//        Pendo.PendoInitParams pendoParams = new Pendo.PendoInitParams();
+//        String pendoAppKey = "eyJhbGciOiJSUzI1NiIsImtpZCI6IiIsInR5cCI6IkpXVCJ9.eyJkYXRhY2VudGVyIjoidXMiLCJrZXkiOiJmMmRmODk0NzZlYmU0MjI1YTVmNmVmY2NkNTdjMWRmNTdmMjhjNWJhNmRiZDBkNTJmMTNlZWY2M2Y1MTFkZDRmYTQwY2M3ZTQxZGJjMzU5YTMwYjYxY2U3Y2JiYjQxMzFhYzdhMjM1NTIxOWQwNmUzYjMzMDEyZDY1MjgwOGM2ODdkNTA5ZjNhODIyMGUxZGZkNTg2ZTcxMWY4NjkwYjBmLjZhMmZmMjEyNjMyYmFjYzczMzdhZDVkM2JkZWVjNzY1LmM0MDIxNDFjNGFlODNmZjhlODY0OGUzMzhmM2M1YjVkOWVkNzUxMzU3NDAyYmNmN2Q4ZjBlYzdiNjQ3YjUwMTUifQ.MJ2J5Qx3AuR4Lnjp489goh25e45GmZm6tkCDg_HpmI3ZXnrZrOQNluEvHvs9FX-BDDyImoMTcyNgdJjZifVSsfY3LOk9GK_WSyQtf1CV-8aaLfsxMhxeC2xIvJrZoPtdZ-ks-a3Yh-bfVA05X5J8-O4jF0-cZwoxQwRi0Ai9jh4";
+//        Pendo.initSDK(
+//                this,
+//                pendoAppKey,
+//                pendoParams);
+
+//        String visitorId = "Visitor_1";
+//        String accountId = "Account_1";
+//        Map<String, Object> visitorData = null;
+//        Map<String, Object> accountData = null;
+//
+//        Pendo.switchVisitor(
+//                visitorId,
+//                accountId,
+//                visitorData,
+//                accountData);
+
     }
 
     private void setupDrawer() throws Exception {

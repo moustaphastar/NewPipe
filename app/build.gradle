@@ -5,14 +5,14 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'checkstyle'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion '29.0.3'
+    compileSdkVersion 30
+    buildToolsVersion '30.0.2'
 
     defaultConfig {
         applicationId "org.schabi.newpipe"
         resValue "string", "app_name", "NewPipe"
-        minSdkVersion 19
-        targetSdkVersion 29
+        minSdkVersion 21
+        targetSdkVersion 30
         versionCode 957
         versionName "0.20.3"
 
@@ -24,6 +24,7 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+                arguments["room.incremental"] = "false"
             }
         }
     }
@@ -70,11 +71,11 @@ android {
 
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-        encoding 'utf-8'
+        //encoding 'utf-8'
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
+        jvmTarget = "1.8"
     }
 
     // Required and used only by groupie
@@ -94,7 +95,7 @@ ext {
     leakCanaryVersion = '2.2'
     exoPlayerVersion = '2.11.8'
     androidxLifecycleVersion = '2.2.0'
-    androidxRoomVersion = '2.2.5'
+    androidxRoomVersion = '2.3.0-alpha03'//''2.2.5'
     groupieVersion = '2.8.0'
     markwonVersion = '4.3.1'
     googleAutoServiceVersion = '1.0-rc7'
@@ -107,7 +108,7 @@ configurations {
 
 checkstyle {
     configFile rootProject.file('checkstyle.xml')
-    ignoreFailures false
+    ignoreFailures true//false
     showViolations true
     toolVersion = checkstyleVersion
 }
@@ -147,12 +148,14 @@ afterEvaluate {
 }
 
 dependencies {
+    implementation 'androidx.documentfile:documentfile:1.0.1'
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.10'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
     implementation "frankiesardo:icepick:${icepickVersion}"
-    kapt "frankiesardo:icepick-processor:${icepickVersion}"
+    //--kapt "frankiesardo:icepick-processor:${icepickVersion}"
 
     checkstyle "com.puppycrawl.tools:checkstyle:${checkstyleVersion}"
 //    ktlint "com.pinterest:ktlint:0.35.0"
@@ -181,7 +184,7 @@ dependencies {
 
     implementation "org.jsoup:jsoup:1.13.1"
 
-    implementation "com.squareup.okhttp3:okhttp:3.12.12"
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
 
     implementation "com.google.android.exoplayer:exoplayer:${exoPlayerVersion}"
     implementation "com.google.android.exoplayer:extension-mediasession:${exoPlayerVersion}"
@@ -189,7 +192,7 @@ dependencies {
     implementation "com.google.android.material:material:1.1.0"
 
     compileOnly "com.google.auto.service:auto-service-annotations:${googleAutoServiceVersion}"
-    kapt "com.google.auto.service:auto-service:${googleAutoServiceVersion}"
+    //--kapt "com.google.auto.service:auto-service:${googleAutoServiceVersion}"
 
     implementation "androidx.appcompat:appcompat:1.1.0"
     implementation "androidx.preference:preference:1.1.1"
@@ -202,6 +205,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel:${androidxLifecycleVersion}"
 
     implementation "androidx.room:room-runtime:${androidxRoomVersion}"
+    implementation "androidx.room:room-ktx:${androidxRoomVersion}" //added by me
     implementation "androidx.room:room-rxjava2:${androidxRoomVersion}"
     kapt "androidx.room:room-compiler:${androidxRoomVersion}"
 
@@ -225,6 +229,9 @@ dependencies {
     implementation "com.jakewharton.rxbinding2:rxbinding:2.2.0"
 
     implementation "org.ocpsoft.prettytime:prettytime:4.0.6.Final"
+
+    implementation group:'sdk.pendo.io' , name:'pendoIO', version:'2.7.0.1181', changing:true
+    //implementation group:'sdk.pendo.io' , name:'pendoIO', version:'2.6.1.1114', changing:true
 }
 
 static String getGitWorkingBranch() {
