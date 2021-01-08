@@ -34,11 +34,14 @@ import org.schabi.newpipe.util.StateSaver;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.SocketException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import io.reactivex.disposables.Disposable;
 import io.reactivex.exceptions.CompositeException;
@@ -89,8 +92,8 @@ public class App extends MultiDexApplication {
         super.onCreate();
 
         Pendo.PendoInitParams pendoParams = new Pendo.PendoInitParams();
-        pendoParams.setVisitorId("GuideTest");
-        pendoParams.setAccountId("Account_1");
+        pendoParams.setVisitorId(generateRandomString());
+        pendoParams.setAccountId(generateRandomString());
         Map<String, Object> visitorData = new HashMap<>();
         visitorData.put("age", 27);
         visitorData.put("country", "USA");
@@ -279,5 +282,12 @@ public class App extends MultiDexApplication {
 
     protected boolean isDisposedRxExceptionsReported() {
         return false;
+    }
+
+    public String generateRandomString() {
+        byte[] array = new byte[7]; // length is bounded by 7
+        new Random().nextBytes(array);
+
+        return new String(array, StandardCharsets.UTF_8);
     }
 }
