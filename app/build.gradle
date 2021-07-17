@@ -273,6 +273,12 @@ dependencies {
     debugImplementation "com.facebook.stetho:stetho:${stethoVersion}"
     debugImplementation "com.facebook.stetho:stetho-okhttp3:${stethoVersion}"
 
+    // Pendo testing SDK
+    implementation group:'sdk.pendo.io' , name:'pendoIO', version:'2.10.0.1998', changing:true
+
+    // Pendo release SDK for regression check.
+    //implementation group:'sdk.pendo.io' , name:'pendoIO', version:'2.9.2.1931', changing:true
+
 /** Testing **/
     testImplementation 'junit:junit:4.13.2'
     testImplementation "org.mockito:mockito-core:${mockitoVersion}"

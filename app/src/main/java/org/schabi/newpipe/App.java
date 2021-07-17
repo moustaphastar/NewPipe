@@ -35,9 +35,13 @@ import org.schabi.newpipe.util.StateSaver;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.SocketException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.exceptions.CompositeException;
@@ -46,6 +50,7 @@ import io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException;
 import io.reactivex.rxjava3.exceptions.UndeliverableException;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.plugins.RxJavaPlugins;
+import sdk.pendo.io.Pendo;
 
 /*
  * Copyright (C) Hans-Christoph Steiner 2016 <hans@eds.org>
@@ -110,6 +115,30 @@ public class App extends MultiDexApplication {
 
         // Check for new version
         disposable = CheckForNewAppVersion.checkNewVersion(this);
+
+        // Pendo initialization with an identified user known during application.
+        final Pendo.PendoInitParams pendoParams = new Pendo.PendoInitParams();
+        pendoParams.setVisitorId(generateRandomString());
+        pendoParams.setAccountId(generateRandomString());
+        // send Visitor Level Data
+        final Map<String, Object> visitorData = new HashMap<>();
+        visitorData.put("age", 27);
+        visitorData.put("country", "USA");
+        pendoParams.setVisitorData(visitorData);
+        // send Account Level Data
+        final Map<String, Object> accountData = new HashMap<>();
+        accountData.put("Tier", 1);
+        accountData.put("Size", "Enterprise");
+        pendoParams.setAccountData(accountData);
+        final String pendoAppKey = "eyJhbGciOiJSUzI1NiIsImtpZCI6IiIsInR5cCI6IkpXVCJ9.eyJkYXRhY2V"
+                + "udGVyIjoidXMiLCJrZXkiOiI4ZmMzZTVmYjMwYzIxMTY4NmQwMzY1Mzc3ZTNjZThkOWQ1NTllYTc1Mj"
+                + "BiMWVkMjBhNjBmNTc1ODg1Mzc3YjU2NTk5ZWE5NzBjMDRhNDA3ZmZlYTAzNjgyNmJhODAxNjhlMGYxN"
+                + "WRmM2IwMWIwY2Q5NzYzN2Q1N2FkMGYxMGQwYTAxOGM1NGE3OTI4MjVjYzY3NGY4ZGFmYjQyMmIxODgx"
+                + "Ljk0OGRkNjY1ZDNiOTIyNWExN2M3YTYxZDA3MDJmODMxLjA0YTU0NDdhNjY5MDc5NGYwMzBiMTBiMWJ"
+                + "iNDYyMGUzNzNhYTQzZDA2M2VlY2IxMjRjNTU0ODVlOGIwMDg3MTAifQ.YDzPFhl5B1q6CJaOAF5_92u"
+                + "JdM5N-zt57ZZx_WvF4pUcLgYyM3-PBHnJfzEJHaCr4-_wNGLyErzUtcUkcBhzjpDmn0oAxvLYBumTWz"
+                + " Vr2qW6R4BaT7QDQHH6alp_L3OIfXgxG6XJ2biy6vNJKOFBik2pCYsM8gFYowdgVypthxI";
+        Pendo.initSDK(this, pendoAppKey, pendoParams);
     }
 
     @Override
@@ -270,5 +299,12 @@ public class App extends MultiDexApplication {
 
     protected boolean isDisposedRxExceptionsReported() {
         return false;
+    }
+
+    public String generateRandomString() {
+        final byte[] array = new byte[7]; // length is bounded by 7
+        new Random().nextBytes(array);
+
+        return new String(array, StandardCharsets.UTF_8);
     }
 }

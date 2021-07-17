@@ -21,5 +21,9 @@ allprojects {
         google()
         maven { url "https://jitpack.io" }
         maven { url "https://clojars.org/repo" }
+        // Pendo testing
+        maven { url "https://software.mobile.pendo.io/artifactory/applause-android-sdk-shared"}
+        // Pendo release for regression check.
+        //maven { url "https://software.mobile.pendo.io/artifactory/android-release"}
     }
 }

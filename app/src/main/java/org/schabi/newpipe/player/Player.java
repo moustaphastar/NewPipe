@@ -608,7 +608,6 @@ public final class Player implements
                     || currentState == STATE_COMPLETED) && newQueue.getStreams().size() > 0) {
                 playQueue.setIndex(sizeBeforeAppend);
             }
-
             return;
         }
 
@@ -617,7 +616,6 @@ public final class Player implements
         final float playbackPitch = savedParameters.pitch;
         final boolean playbackSkipSilence = getPrefs().getBoolean(getContext().getString(
                 R.string.playback_skip_silence_key), getPlaybackSkipSilence());
-
         final boolean samePlayQueue = playQueue != null && playQueue.equals(newQueue);
         final int repeatMode = intent.getIntExtra(REPEAT_MODE, getRepeatMode());
         final boolean playWhenReady = intent.getBooleanExtra(PLAY_WHEN_READY, true);
@@ -645,7 +643,6 @@ public final class Player implements
             }
             simpleExoPlayer.seekTo(playQueue.getIndex(), newQueue.getItem().getRecoveryPosition());
             simpleExoPlayer.setPlayWhenReady(playWhenReady);
-
         } else if (!exoPlayerIsNull()
                 && samePlayQueue
                 && playQueue != null
@@ -658,7 +655,6 @@ public final class Player implements
                 simpleExoPlayer.prepare();
             }
             simpleExoPlayer.setPlayWhenReady(playWhenReady);
-
         } else if (intent.getBooleanExtra(RESUME_PLAYBACK, false)
                 && isPlaybackResumeEnabled(this)
                 && !samePlayQueue
