@@ -32,9 +32,12 @@ import org.schabi.newpipe.util.StateSaver;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.SocketException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import io.reactivex.rxjava3.exceptions.CompositeException;
 import io.reactivex.rxjava3.exceptions.MissingBackpressureException;
@@ -42,6 +45,7 @@ import io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException;
 import io.reactivex.rxjava3.exceptions.UndeliverableException;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.plugins.RxJavaPlugins;
+import sdk.pendo.io.Pendo;
 
 /*
  * Copyright (C) Hans-Christoph Steiner 2016 <hans@eds.org>
@@ -111,6 +115,29 @@ public class App extends MultiDexApplication {
                 && prefs.getBoolean(getString(R.string.show_image_indicators_key), false));
 
         configureRxJavaErrorHandler();
+
+        Pendo.setup(
+                this,
+                getString(R.string.pendo_key),
+                null,
+                null
+        );
+
+        final String visitorId = generateRandomString();
+        final String accountId = generateRandomString();
+
+        // send Visitor Level Data
+        final HashMap<String, Object> visitorData = new HashMap<>();
+        visitorData.put("age", 27);
+        visitorData.put("country", "USA");
+
+        // send Account Level Data
+        final HashMap<String, Object> accountData = new HashMap<>();
+        accountData.put("Tier", 1);
+        accountData.put("Size", "Enterprise");
+
+        Pendo.startSession(visitorId, accountId, visitorData, accountData
+        );
     }
 
     @Override
@@ -253,6 +280,13 @@ public class App extends MultiDexApplication {
 
     protected boolean isDisposedRxExceptionsReported() {
         return false;
+    }
+
+    private String generateRandomString() {
+        final byte[] array = new byte[7]; // length is bounded by 7
+        new Random().nextBytes(array);
+
+        return new String(array, StandardCharsets.UTF_8);
     }
 
 }
