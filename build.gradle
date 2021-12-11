@@ -26,7 +26,7 @@ allprojects {
 
         /** Pendo **/
         maven {
-            url "https://software.mobile.pendo.io/artifactory/androidx-release"
+            url "https://software.mobile.pendo.io/artifactory/applause-android-sdk-shared"
             // <For Android Support (not AndroidX) use the below instead of the above>
             // url "https://software.mobile.pendo.io/artifactory/android-release"
         }
