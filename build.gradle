@@ -21,5 +21,11 @@ allprojects {
         mavenCentral()
         maven { url "https://jitpack.io" }
         maven { url "https://clojars.org/repo" }
+
+        /** Pendo **/
+        maven {
+            //url "https://software.mobile.pendo.io/artifactory/applause-androidx-release"
+            url "https://software.mobile.pendo.io/artifactory/androidx-release"
+        }
     }
 }

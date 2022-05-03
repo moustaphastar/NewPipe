@@ -14,8 +14,8 @@ android {
     defaultConfig {
         applicationId "org.schabi.newpipe"
         resValue "string", "app_name", "NewPipe"
-        minSdk 19
-        targetSdk 29
+        minSdk 21
+        targetSdk 30
         versionCode 986
         versionName "0.23.0"
 
@@ -294,6 +294,9 @@ dependencies {
     androidTestImplementation "androidx.test:runner:1.4.0"
     androidTestImplementation "androidx.room:room-testing:${androidxRoomVersion}"
     androidTestImplementation "org.assertj:assertj-core:${assertJVersion}"
+
+/** Pendo **/
+    implementation group:'sdk.pendo.io' , name:'pendoIO', version:'2.15.2.3680', changing:true
 }
 
 static String getGitWorkingBranch() {
